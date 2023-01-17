@@ -35,7 +35,10 @@
 #include <limits>
 #include <string>
 #include <utility>
+#include <vector>
 
+#include <gmock/gmock.h>
+#include "google/protobuf/testing/googletest.h"
 #include <gtest/gtest.h>
 #include "absl/log/absl_check.h"
 #include "absl/strings/match.h"

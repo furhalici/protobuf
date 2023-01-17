@@ -41,6 +41,7 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "google/protobuf/testing/file.h"
 #include "google/protobuf/testing/file.h"
@@ -60,6 +61,7 @@
 #include "google/protobuf/io/tokenizer.h"
 #include "google/protobuf/io/zero_copy_stream_impl.h"
 #include "google/protobuf/map_unittest.pb.h"
+#include "google/protobuf/message.h"
 #include "google/protobuf/test_util.h"
 #include "google/protobuf/test_util2.h"
 #include "google/protobuf/unittest.pb.h"
