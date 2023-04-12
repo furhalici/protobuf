@@ -103,6 +103,15 @@ Message* MaybeForceCopy(Arena* arena, Message* msg) {
 
 namespace internal {
 
+void InitializeFileDescriptorDefaultInstances() {
+#if !defined(PROTOBUF_CONSTINIT_DEFAULT_INSTANCES)
+  ABSL_CONST_INIT static absl::once_flag init_file_descriptor_defaults;
+  absl::call_once(init_file_descriptor_defaults,
+                  // This function is defined in descriptor.pb.cc
+                  InitializeFileDescriptorDefaultInstancesSlow);
+#endif  // !defined(PROTOBUF_CONSTINIT_DEFAULT_INSTANCES)
+}
+
 bool ParseNamedEnum(const EnumDescriptor* descriptor, absl::string_view name,
                     int* value) {
   const EnumValueDescriptor* d = descriptor->FindValueByName(name);
@@ -3570,6 +3579,7 @@ void AssignDescriptorsImpl(const DescriptorTable* table, bool eager) {
 void AddDescriptorsImpl(const DescriptorTable* table) {
   // Reflection refers to the default fields so make sure they are initialized.
   internal::InitProtobufDefaults();
+  internal::InitializeFileDescriptorDefaultInstances();
 
   // Ensure all dependent descriptors are registered to the generated descriptor
   // pool and message factory.
